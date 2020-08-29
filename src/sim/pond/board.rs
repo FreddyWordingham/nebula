@@ -1,8 +1,8 @@
 //! Universal state.
 
-use ndarray::Array2;
-// use std::fmt::{Display, Formatter, Result};
 use crate::{access, clone, pond::Cell};
+use ndarray::Array2;
+use std::fmt::{Display, Formatter, Result};
 use wasm_bindgen::prelude::*;
 
 /// Game board.
@@ -40,21 +40,16 @@ impl Board {
     }
 }
 
-// impl Display for Board {
-//     #[inline]
-//     fn fmt(&self, f: &mut Formatter) -> Result {
-//         for row in 0..self.res[1] {
-//             for col in 0..self.res[0] {
-//                 let symbol = if self.cells[self.get_index(row, col)] {
-//                     '◼'
-//                 } else {
-//                     '◻'
-//                 };
-//                 write!(f, "{}", symbol)?;
-//             }
-//             writeln!(f)?;
-//         }
+impl Display for Board {
+    #[inline]
+    fn fmt(&self, f: &mut Formatter) -> Result {
+        for row in 0..self.res[1] {
+            for col in 0..self.res[0] {
+                write!(f, "{}", self.cells[[row, col]])?;
+            }
+            writeln!(f)?;
+        }
 
-//         Ok(())
-//     }
-// }
+        Ok(())
+    }
+}
