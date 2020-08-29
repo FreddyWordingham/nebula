@@ -46,26 +46,21 @@ function setup_new_grid(width, height) {
     return board;
 }
 
+/// Main rendering function.
+function render() {
+    draw_counts(ctx, width, height, board, memory);
+    draw_cells(ctx, width, height, board, memory);
+}
+
 /// Update the board and then draw it.
 function loop(timestamp) {
     board.tick_forward(1);
 
-    draw_counts(ctx, width, height, board, memory);
-    draw_cells(ctx, width, height, board, memory);
+    render();
     // console.log("num alive: ", board.num_alive());
 
     frame_id = window.requestAnimationFrame(loop)
 }
-
-
-/// Rendering loop global variables.
-let frame_id = null;
-
-let width = 64;
-let height = 64;
-let board = setup_new_grid(width, height);
-window.requestAnimationFrame(loop)
-
 
 
 /// Buttons
@@ -105,6 +100,9 @@ reset_life_button.addEventListener("click", event => {
 /// Reset history button.
 reset_hist_button.addEventListener("click", event => {
     board.reset_count();
+    console.log("no");
+    render();
+    console.log("excuses!");
 });
 
 
@@ -112,6 +110,29 @@ reset_hist_button.addEventListener("click", event => {
 life_chance.addEventListener("oninput", event => {
     console.log("hello");
 });
+
+
+
+/// Toggle the form visibility.
+function toggle_forms() {
+    console.log("Toggling")
+    if (top_form.style.display == "block") {
+        if (is_paused()) {
+            play();
+        }
+
+        top_form.style.display = "none";
+        bottom_form.style.display = "none";
+    } else {
+        if (!is_paused()) {
+            pause();
+        }
+
+        top_form.style.display = "block";
+        bottom_form.style.display = "block";
+    }
+}
+
 
 
 /// Keypress.
@@ -123,13 +144,19 @@ document.body.onkeyup = function (e) {
             pause();
         }
     } else if (e.keyCode == 27) { // escape.
-        pause();
-        if (top_form.style.display == "block") {
-            top_form.style.display = "none";
-            bottom_form.style.display = "none";
-        } else {
-            top_form.style.display = "block";
-            bottom_form.style.display = "block";
-        }
+        toggle_forms();
     }
 }
+
+
+
+/// Rendering loop global variables.
+let frame_id = null;
+
+let width = 64;
+let height = 64;
+let board = setup_new_grid(width, height);
+window.requestAnimationFrame(loop);
+
+top_form.style.display = "none";
+bottom_form.style.display = "none";
