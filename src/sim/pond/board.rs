@@ -32,7 +32,7 @@ impl Board {
 
     /// Count the number of living cells.
     #[must_use]
-    pub fn occupation(&self) -> u32 {
+    pub fn num_alive(&self) -> u32 {
         self.cells.iter().fold(0, |alive, cell| match cell {
             Cell::Dead { .. } => alive + 1,
             _ => alive,
@@ -57,6 +57,30 @@ impl Board {
             res,
             cells: Array2::default([res[X], res[Y]]),
         }
+    }
+
+    /// Calculate the number of neighbours a given cell has.
+    #[inline]
+    #[must_use]
+    fn num_neighbours(&self, index: [usize; 2]) -> u8 {
+        let mut count = 0;
+
+        let [row, col] = index;
+        let top = if row == 0 { self.res[Y] - 1 } else { row - 1 };
+        let bottom = if row == (self.res[Y] - 1) { 0 } else { row + 1 };
+        let left = if col == 0 { self.res[X] - 1 } else { col - 1 };
+        let right = if col == (self.res[X] - 1) { 0 } else { col + 1 };
+
+        count += self.cells[(top, left)] as u8
+            + self.cells[(top, col)] as u8
+            + self.cells[(top, right)] as u8
+            + self.cells[(row, left)] as u8
+            + self.cells[(row, right)] as u8
+            + self.cells[(bottom, left)] as u8
+            + self.cells[(bottom, col)] as u8
+            + self.cells[(bottom, right)] as u8;
+
+        count
     }
 }
 

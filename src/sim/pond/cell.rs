@@ -3,6 +3,7 @@
 use std::fmt::{Display, Formatter, Result};
 
 /// Cell status.
+#[derive(Clone, Copy)]
 pub enum Cell {
     /// Dead cell.
     Dead = 0,
