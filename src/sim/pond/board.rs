@@ -14,6 +14,8 @@ pub struct Board {
     cells: Array2<Cell>,
     /// Previous state array.
     prev: Array2<Cell>,
+    /// Number of previous occupants.
+    count: Array2<u32>,
 }
 
 //  JS methods.
@@ -89,8 +91,9 @@ impl Board {
 
         Self {
             res,
-            cells: Array2::default([res[X], res[Y]]),
-            prev: Array2::default([res[X], res[Y]]),
+            cells: Array2::default(res),
+            prev: Array2::default(res),
+            count: Array2::zeros(res),
         }
     }
 
@@ -98,7 +101,7 @@ impl Board {
     #[inline]
     #[must_use]
     fn num_neighbours(&self, index: [usize; 2]) -> u8 {
-        let mut count = 0;
+        let mut total = 0;
 
         let [row, col] = index;
         let top = if row == 0 { self.res[Y] - 1 } else { row - 1 };
@@ -106,7 +109,7 @@ impl Board {
         let left = if col == 0 { self.res[X] - 1 } else { col - 1 };
         let right = if col == (self.res[X] - 1) { 0 } else { col + 1 };
 
-        count += self.cells[(top, left)] as u8
+        total += self.cells[(top, left)] as u8
             + self.cells[(top, col)] as u8
             + self.cells[(top, right)] as u8
             + self.cells[(row, left)] as u8
@@ -115,7 +118,7 @@ impl Board {
             + self.cells[(bottom, col)] as u8
             + self.cells[(bottom, right)] as u8;
 
-        count
+        total
     }
 
     /// Iterate the board forward a given number of steps.
@@ -138,6 +141,7 @@ impl Board {
                     }
                     Cell::Dead => {
                         if num_neigh == 3 {
+                            self.count[index] += 1;
                             Cell::Alive
                         } else {
                             Cell::Dead

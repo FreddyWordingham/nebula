@@ -3,9 +3,9 @@ export const CELL_SIZE = 10; // [px]
 /// Grid colour.
 const GRID_COL = "#CCCCCC";
 /// Dead cell colour.
-const DEAD_COL = "#FFFFFF";
+const DEAD_COL = "#0C3EF9FF";
 /// Living cell colour.
-const ALIVE_COL = "#000000";
+const ALIVE_COL = "#ebe600ff";
 
 
 
