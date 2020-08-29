@@ -24,13 +24,6 @@ extern "C" {
     fn alert(s: &str);
 }
 
-/// Test greeting function.
-#[wasm_bindgen]
-#[inline]
-pub fn greet(name: &str) {
-    alert(&format!("Hello, {}!", name));
-}
-
 // use js_sys;
 // /// A macro to provide `println!(..)`-style syntax for `console.log` logging.
 // macro_rules! log {

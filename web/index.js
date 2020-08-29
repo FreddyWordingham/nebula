@@ -1,3 +1,11 @@
-import * as wasm from "hello-wasm-pack";
+import {
+    memory
+} from "museum/museum_bg";
+import {
+    Board,
+    Cell,
+} from "museum";
 
-wasm.greet();
+
+/// Main board.
+const board = Board.new(DEFAULT_WIDTH, DEFAULT_HEIGHT);
