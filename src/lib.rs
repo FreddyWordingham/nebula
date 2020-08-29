@@ -28,6 +28,8 @@
     clippy::unwrap_used
 )]
 
+pub mod sim;
 pub mod wasm;
 
+pub use self::sim::*;
 pub use self::wasm::*;
