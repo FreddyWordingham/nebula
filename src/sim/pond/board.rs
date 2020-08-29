@@ -36,7 +36,7 @@ impl Board {
     #[must_use]
     pub fn num_alive(&self) -> u32 {
         self.cells.iter().fold(0, |alive, cell| match cell {
-            Cell::Dead { .. } => alive + 1,
+            Cell::Alive { .. } => alive + 1,
             _ => alive,
         })
     }
