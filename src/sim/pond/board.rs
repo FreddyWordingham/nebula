@@ -73,9 +73,9 @@ impl Board {
         for xi in 0..self.res[X] {
             for yi in 0..self.res[Y] {
                 self.cells[[xi, yi]] = if js_sys::Math::random() < x {
-                    Cell::Dead
-                } else {
                     Cell::Alive
+                } else {
+                    Cell::Dead
                 };
             }
         }

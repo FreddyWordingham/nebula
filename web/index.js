@@ -22,7 +22,6 @@ const ctx = canvas.getContext('2d');
 
 /// Form ids.
 const top_form = document.getElementById("top_form");
-const reset_life_button = document.getElementById("reset_life_button");
 const reset_hist_button = document.getElementById("reset_hist_button");
 const life_chance = document.getElementById("life_chance_range");
 
@@ -49,6 +48,7 @@ function setup_new_grid(width, height) {
 function render() {
     draw_counts(ctx, width, height, board, memory);
     draw_cells(ctx, width, height, board, memory);
+    // console.log("num alive: ", board.num_alive());
 }
 
 /// Update the board and then draw it.
@@ -56,7 +56,6 @@ function loop(timestamp) {
     board.tick_forward(1);
 
     render();
-    // console.log("num alive: ", board.num_alive());
 
     frame_id = window.requestAnimationFrame(loop)
 }
@@ -83,6 +82,18 @@ function pause() {
 
 
 /// Listeners
+/// Life chance fraction.
+life_chance_range.addEventListener("change", event => {
+    board.randomise(life_chance.value);
+    render();
+});
+
+/// Reset history button.
+reset_hist_button.addEventListener("click", event => {
+    board.reset_count();
+    render();
+});
+
 /// Check for button click.
 time_button.addEventListener("click", event => {
     if (is_paused()) {
@@ -92,18 +103,7 @@ time_button.addEventListener("click", event => {
     }
 });
 
-/// Reset button.
-reset_life_button.addEventListener("click", event => {
-    board.randomise(life_chance.value);
-});
 
-/// Reset history button.
-reset_hist_button.addEventListener("click", event => {
-    board.reset_count();
-    console.log("no");
-    render();
-    console.log("excuses!");
-});
 
 /// Toggle the form visibility.
 function toggle_forms() {
