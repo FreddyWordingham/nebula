@@ -106,16 +106,8 @@ reset_hist_button.addEventListener("click", event => {
     console.log("excuses!");
 });
 
-/// Life chance.
-life_chance.addEventListener("oninput", event => {
-    console.log("hello");
-});
-
-
-
 /// Toggle the form visibility.
 function toggle_forms() {
-    console.log("Toggling")
     if (top_form.style.display == "block") {
         if (is_paused()) {
             play();
