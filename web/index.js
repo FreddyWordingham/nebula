@@ -82,6 +82,8 @@ function pause() {
     frame_id = null;
 };
 
+
+/// Listeners
 /// Check for button click.
 time_button.addEventListener("click", event => {
     if (is_paused()) {
@@ -90,7 +92,6 @@ time_button.addEventListener("click", event => {
         pause();
     }
 });
-
 
 /// Reset button.
 reset_life_button.addEventListener("click", event => {
@@ -105,8 +106,7 @@ reset_hist_button.addEventListener("click", event => {
     console.log("excuses!");
 });
 
-
-/// Ranges.
+/// Life chance.
 life_chance.addEventListener("oninput", event => {
     console.log("hello");
 });
