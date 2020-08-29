@@ -34,6 +34,18 @@ impl Board {
         Self::new_sized([width as usize, height as usize])
     }
 
+    /// Reference the array of cells as a pointer.
+    #[must_use]
+    pub fn cells_ptr(&self) -> *const Cell {
+        self.cells.as_ptr()
+    }
+
+    /// Reference the array of cells as a pointer.
+    #[must_use]
+    pub fn count_ptr(&self) -> *const u8 {
+        self.count.as_ptr()
+    }
+
     /// Count the number of living cells.
     #[must_use]
     pub fn num_alive(&self) -> u32 {
@@ -67,18 +79,6 @@ impl Board {
                 };
             }
         }
-    }
-
-    /// Reference the array of cells as a pointer.
-    #[must_use]
-    pub fn cells_ptr(&self) -> *const Cell {
-        self.cells.as_ptr()
-    }
-
-    /// Reference the array of cells as a pointer.
-    #[must_use]
-    pub fn count_ptr(&self) -> *const u8 {
-        self.count.as_ptr()
     }
 }
 
