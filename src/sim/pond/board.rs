@@ -48,6 +48,23 @@ impl Board {
             self.tick();
         }
     }
+
+    /// Randomise the status of a cell.
+    pub fn randomise(&mut self, x: f64) {
+        debug_assert!(x >= 0.0);
+        debug_assert!(x <= 1.0);
+
+        for xi in 0..self.res[X] {
+            for yi in 0..self.res[Y] {
+                let status = if js_sys::Math::random() < x {
+                    Cell::Dead
+                } else {
+                    Cell::Alive
+                };
+                self.cells[[xi, yi]] = status;
+            }
+        }
+    }
 }
 
 impl Board {
@@ -57,7 +74,7 @@ impl Board {
     /// Construct a new instance with a given board size.
     #[inline]
     #[must_use]
-    fn new_sized(res: [usize; 2]) -> Self {
+    pub fn new_sized(res: [usize; 2]) -> Self {
         crate::set_panic_hook(); // TODO: Better place for this?
 
         debug_assert!(res[X] > 0);
@@ -97,8 +114,8 @@ impl Board {
     /// Iterate the board forward a given number of steps.
     #[inline]
     pub fn tick(&mut self) {
-        for row in 0..self.res[1] {
-            for col in 0..self.res[0] {
+        for row in 0..self.res[Y] {
+            for col in 0..self.res[X] {
                 let index = [row, col];
 
                 let cell = self.cells[index];
