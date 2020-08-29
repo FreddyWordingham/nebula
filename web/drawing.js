@@ -15,6 +15,9 @@ const DEAD_COL = "#ffffff";
 /// Living cell colour.
 const ALIVE_COL = "#000000";
 
+const SPEED = 5;
+const OFFSET = 0;
+
 
 
 /// Draw the grid array.
@@ -73,7 +76,7 @@ export function draw_counts(ctx, width, height, board, memory) {
         for (let col = 0; col < width; ++col) {
             const idx = (row * width) + col;
 
-            let c = (((((count[idx] + 1) * 5) + 0) % 255) / 255.0);
+            let c = (((((count[idx] + 1) * SPEED) + OFFSET) % 255) / 255.0);
             let [r, g, b] = hsl_to_rgb(c, 0.5, 0.5);
             ctx.fillStyle = `rgb(
                     ${Math.floor(r)},
