@@ -1,6 +1,6 @@
 //! Universal state.
 
-use crate::{access, clone, pond::Cell, X, Y};
+use crate::{access, clone, log, pond::Cell, X, Y};
 use ndarray::Array2;
 use std::fmt::{Display, Formatter, Result};
 use wasm_bindgen::prelude::*;
@@ -24,6 +24,8 @@ impl Board {
     pub fn new(width: u32, height: u32) -> Self {
         debug_assert!(width > 0);
         debug_assert!(height > 0);
+
+        log!("Creating board: {}x{}", width, height);
 
         Self::new_sized([width as usize, height as usize])
     }
