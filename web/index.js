@@ -23,6 +23,9 @@ const ctx = canvas.getContext('2d');
 /// Form ids.
 const reset_life_button = document.getElementById("reset_life_button");
 const reset_hist_button = document.getElementById("reset_hist_button");
+
+const time_button = document.getElementById("time_button");
+
 const life_chance = document.getElementById("life_chance_range");
 
 
@@ -50,9 +53,12 @@ function loop(timestamp) {
     draw_cells(ctx, width, height, board, memory);
     // console.log("num alive: ", board.num_alive());
 
-    window.requestAnimationFrame(loop)
+    frame_id = window.requestAnimationFrame(loop)
 }
 
+
+/// Rendering loop global variables.
+let frame_id = null;
 
 let width = 64;
 let height = 64;
@@ -62,6 +68,33 @@ window.requestAnimationFrame(loop)
 
 
 /// Buttons
+/// Check if time is paused.
+const is_paused = () => {
+    return frame_id === null;
+};
+
+/// Start time.
+const play = () => {
+    time_button.textContent = "stop";
+    render_loop();
+};
+
+/// Stop time.
+const pause = () => {
+    time_button.textContent = "start";
+    cancelAnimationFrame(frame_id);
+    frame_id = null;
+};
+
+/// Check for button click.
+time_button.addEventListener("click", event => {
+    if (is_paused()) {
+        play();
+    } else {
+        pause();
+    }
+});
+
 
 /// Reset button.
 reset_life_button.addEventListener("click", event => {
