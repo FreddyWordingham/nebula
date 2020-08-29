@@ -6,9 +6,10 @@ import {
     memory
 } from "museum/museum_bg";
 import {
+    CELL_SIZE,
     draw_cells,
-    draw_grid,
-    CELL_SIZE
+    draw_counts,
+    draw_grid
 } from "./drawing";
 
 
@@ -30,7 +31,7 @@ function setup_new_grid(width, height) {
     board.randomise(0.5);
 
     draw_grid(ctx, width, height);
-    draw_cells(ctx, width, height, board, memory);
+    // draw_cells(ctx, width, height, board, memory);
     console.log("num alive: ", board.num_alive());
 
     return board;
@@ -40,6 +41,7 @@ function setup_new_grid(width, height) {
 function loop(timestamp) {
     board.tick_forward(1);
 
+    draw_counts(ctx, width, height, board, memory);
     draw_cells(ctx, width, height, board, memory);
     console.log("num alive: ", board.num_alive());
 

@@ -1,11 +1,18 @@
+import {
+    hsl,
+    hsl_to_hex,
+    rgb_to_hex,
+} from "./colour";
+
+
 /// Drawn cell size.
 export const CELL_SIZE = 10; // [px]
 /// Grid colour.
 const GRID_COL = "#CCCCCC";
 /// Dead cell colour.
-const DEAD_COL = "#0C3EF9FF";
+const DEAD_COL = "#ffffff";
 /// Living cell colour.
-const ALIVE_COL = "#ebe600ff";
+const ALIVE_COL = "#000000";
 
 
 
@@ -40,6 +47,35 @@ export function draw_cells(ctx, width, height, board, memory) {
             ctx.fillStyle = cells[idx] == 0 ?
                 DEAD_COL :
                 ALIVE_COL;
+
+            ctx.fillRect(
+                (col * (CELL_SIZE + 1)) + 2,
+                (row * (CELL_SIZE + 1)) + 2,
+                CELL_SIZE - 2,
+                CELL_SIZE - 2
+            );
+        }
+    }
+
+    ctx.stroke();
+}
+
+/// Draw the board count history.
+export function draw_counts(ctx, width, height, board, memory) {
+    const count_ptr = board.count_ptr();
+    const count = new Uint8Array(memory.buffer, count_ptr, (width * height));
+
+    ctx.beginPath();
+
+    for (let row = 0; row < height; ++row) {
+        for (let col = 0; col < width; ++col) {
+            const idx = (row * width) + col;
+
+            let c = 255 - (1 + count[idx]);
+            ctx.fillStyle = `rgb(
+                    ${Math.floor(c)},
+                    ${Math.floor(c)},
+                    ${Math.floor(c)})`;
 
             ctx.fillRect(
                 (col * (CELL_SIZE + 1)) + 1,
