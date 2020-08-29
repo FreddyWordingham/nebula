@@ -6,7 +6,14 @@ import {
 } from "./colour";
 
 
+
+/// Spacing between drawn cells.
+export const CELL_SPACING = 1; // [px]
+/// Spacing interior cell padding.
+export const CELL_PADDING = 3; // [px]
 /// Drawn cell size.
+/// Note that CELL_SIZE > 2 * CELL_PADDING
+/// Must be true.
 export const CELL_SIZE = 10; // [px]
 /// Grid colour.
 const GRID_COL = "#CCCCCC";
@@ -15,27 +22,10 @@ const DEAD_COL = "#000000";
 /// Living cell colour.
 const ALIVE_COL = "#ffffff";
 
-const SPEED = 10;
+const SPEED = 4;
 const OFFSET = 90;
 
 
-
-/// Draw the grid array.
-export function draw_grid(ctx, width, height) {
-    ctx.beginPath();
-    ctx.strokeStyle = GRID_COL;
-
-    for (let j = 0; j <= height; ++j) {
-        ctx.moveTo(0, (j * (CELL_SIZE + 1)) + 1);
-        ctx.lineTo(((CELL_SIZE + 1) * width) + 1, (j * (CELL_SIZE + 1)) + 1);
-    }
-    for (let i = 0; i <= width; ++i) {
-        ctx.moveTo((i * (CELL_SIZE + 1)) + 1, 0);
-        ctx.lineTo((i * (CELL_SIZE + 1)) + 1, ((CELL_SIZE + 1) * height) + 1);
-    }
-
-    ctx.stroke();
-}
 
 /// Draw the cell array.
 export function draw_cells(ctx, width, height, board, memory) {
@@ -54,10 +44,10 @@ export function draw_cells(ctx, width, height, board, memory) {
             }
 
             ctx.fillRect(
-                (col * (CELL_SIZE + 1)) + 4,
-                (row * (CELL_SIZE + 1)) + 4,
-                CELL_SIZE - 2,
-                CELL_SIZE - 2
+                (col * (CELL_SIZE + CELL_SPACING)) + CELL_PADDING,
+                (row * (CELL_SIZE + CELL_SPACING)) + CELL_PADDING,
+                CELL_SIZE - (2 * CELL_PADDING),
+                CELL_SIZE - (2 * CELL_PADDING)
             );
         }
     }
@@ -84,10 +74,10 @@ export function draw_counts(ctx, width, height, board, memory) {
                     ${Math.floor(b)})`;
 
             ctx.fillRect(
-                (col * (CELL_SIZE + 1)) + 2,
-                (row * (CELL_SIZE + 1)) + 2,
-                CELL_SIZE + 1,
-                CELL_SIZE + 1
+                col * (CELL_SIZE + CELL_SPACING),
+                row * (CELL_SIZE + CELL_SPACING),
+                CELL_SIZE,
+                CELL_SIZE
             );
         }
     }

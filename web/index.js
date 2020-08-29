@@ -7,9 +7,9 @@ import {
 } from "museum/museum_bg";
 import {
     CELL_SIZE,
+    CELL_SPACING,
     draw_cells,
-    draw_counts,
-    draw_grid
+    draw_counts
 } from "./drawing";
 
 
@@ -32,15 +32,14 @@ const time_button = document.getElementById("time_button");
 
 /// Draw the grid array.
 function setup_new_grid(width, height) {
-    canvas.height = (CELL_SIZE + 1) * height + 1;
-    canvas.width = (CELL_SIZE + 1) * width + 1;
+    canvas.height = ((CELL_SIZE + CELL_SPACING) * height) - CELL_SPACING;
+    canvas.width = ((CELL_SIZE + CELL_SPACING) * width) - CELL_SPACING;
 
     /// Main board.
     const board = Board.new(width, height);
     board.randomise(life_chance.value);
 
-    draw_grid(ctx, width, height);
-    // draw_cells(ctx, width, height, board, memory);
+    draw_cells(ctx, width, height, board, memory);
     console.log("num alive: ", board.num_alive());
 
     return board;
