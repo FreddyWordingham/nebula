@@ -43,7 +43,7 @@ function loop(timestamp) {
 
     draw_counts(ctx, width, height, board, memory);
     // draw_cells(ctx, width, height, board, memory);
-    console.log("num alive: ", board.num_alive());
+    // console.log("num alive: ", board.num_alive());
 
     window.requestAnimationFrame(loop)
 }
