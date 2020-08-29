@@ -49,7 +49,7 @@ function loop(timestamp) {
 }
 
 
-let width = 128;
-let height = 128;
+let width = 64;
+let height = 64;
 let board = setup_new_grid(width, height);
 window.requestAnimationFrame(loop)

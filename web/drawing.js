@@ -81,10 +81,10 @@ export function draw_counts(ctx, width, height, board, memory) {
                     ${Math.floor(b)})`;
 
             ctx.fillRect(
-                (col * (CELL_SIZE + 1)),
-                (row * (CELL_SIZE + 1)),
-                CELL_SIZE + 1,
-                CELL_SIZE + 1
+                (col * (CELL_SIZE + 1)) + 1,
+                (row * (CELL_SIZE + 1)) + 1,
+                CELL_SIZE,
+                CELL_SIZE
             );
         }
     }
