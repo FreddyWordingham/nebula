@@ -27,3 +27,7 @@
     clippy::unreachable,
     clippy::unwrap_used
 )]
+
+pub mod wasm;
+
+pub use self::wasm::*;
