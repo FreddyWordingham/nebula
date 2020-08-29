@@ -27,7 +27,7 @@ export function draw_grid(ctx, width, height) {
 }
 
 /// Draw the cell array.
-export function draw_cells(ctx, width, height, board) {
+export function draw_cells(ctx, width, height, board, memory) {
     const cells_ptr = board.cells_ptr();
     const cells = new Uint8Array(memory.buffer, cells_ptr, (width * height));
 
@@ -35,7 +35,7 @@ export function draw_cells(ctx, width, height, board) {
 
     for (let row = 0; row < height; ++row) {
         for (let col = 0; col < width; ++col) {
-            const idx = get_index(row, col);
+            const idx = (row * width) + col;
 
             ctx.fillStyle = cells[idx] == 0 ?
                 DEAD_COL :

@@ -1,8 +1,11 @@
 //! Cell status implementation.
 
 use std::fmt::{Display, Formatter, Result};
+use wasm_bindgen::prelude::*;
 
 /// Cell status.
+#[wasm_bindgen]
+#[repr(u8)]
 #[derive(Clone, Copy)]
 pub enum Cell {
     /// Dead cell.

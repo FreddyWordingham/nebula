@@ -44,6 +44,7 @@ impl Board {
     /// Tick forward a number of times.
     pub fn tick_forward(&mut self, ticks: u32) {
         debug_assert!(ticks > 0);
+
         for _ in 0..ticks {
             self.tick();
         }
@@ -54,16 +55,22 @@ impl Board {
         debug_assert!(x >= 0.0);
         debug_assert!(x <= 1.0);
 
+        log!("Randomising board.");
         for xi in 0..self.res[X] {
             for yi in 0..self.res[Y] {
-                let status = if js_sys::Math::random() < x {
+                self.cells[[xi, yi]] = if js_sys::Math::random() < x {
                     Cell::Dead
                 } else {
                     Cell::Alive
                 };
-                self.cells[[xi, yi]] = status;
             }
         }
+    }
+
+    /// Reference the array of cells as a pointer.
+    #[must_use]
+    pub fn cells_ptr(&self) -> *const Cell {
+        self.cells.as_ptr()
     }
 }
 

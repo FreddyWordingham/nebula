@@ -30,7 +30,24 @@ function setup_new_grid(width, height) {
     board.randomise(0.5);
 
     draw_grid(ctx, width, height);
-    draw_cells(ctx, width, height, board);
+    draw_cells(ctx, width, height, board, memory);
+    console.log("num alive: ", board.num_alive());
+
+    return board;
 }
 
-setup_new_grid(64, 64);
+/// Update the board and then draw it.
+function loop(timestamp) {
+    board.tick_forward(1);
+
+    draw_cells(ctx, width, height, board, memory);
+    console.log("num alive: ", board.num_alive());
+
+    window.requestAnimationFrame(loop)
+}
+
+
+let width = 64;
+let height = 64;
+let board = setup_new_grid(width, height);
+window.requestAnimationFrame(loop)
