@@ -21,12 +21,13 @@ const ctx = canvas.getContext('2d');
 
 
 /// Form ids.
+const top_form = document.getElementById("top_form");
 const reset_life_button = document.getElementById("reset_life_button");
 const reset_hist_button = document.getElementById("reset_hist_button");
-
-const time_button = document.getElementById("time_button");
-
 const life_chance = document.getElementById("life_chance_range");
+
+const bottom_form = document.getElementById("bottom_form");
+const time_button = document.getElementById("time_button");
 
 
 /// Draw the grid array.
@@ -115,11 +116,20 @@ life_chance.addEventListener("oninput", event => {
 
 /// Keypress.
 document.body.onkeyup = function (e) {
-    if (e.keyCode == 32) { // Spacebar.
+    if (e.keyCode == 32) { // spacebar.
         if (is_paused()) {
             play();
         } else {
             pause();
+        }
+    } else if (e.keyCode == 27) { // escape.
+        pause();
+        if (top_form.style.display == "block") {
+            top_form.style.display = "none";
+            bottom_form.style.display = "none";
+        } else {
+            top_form.style.display = "block";
+            bottom_form.style.display = "block";
         }
     }
 }
