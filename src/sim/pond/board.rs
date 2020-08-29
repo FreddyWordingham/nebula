@@ -15,7 +15,7 @@ pub struct Board {
     /// Previous state array.
     prev: Array2<Cell>,
     /// Number of previous occupants.
-    count: Array2<u32>,
+    count: Array2<u8>,
 }
 
 //  JS methods.
@@ -73,6 +73,12 @@ impl Board {
     #[must_use]
     pub fn cells_ptr(&self) -> *const Cell {
         self.cells.as_ptr()
+    }
+
+    /// Reference the array of cells as a pointer.
+    #[must_use]
+    pub fn count_ptr(&self) -> *const u8 {
+        self.count.as_ptr()
     }
 }
 
