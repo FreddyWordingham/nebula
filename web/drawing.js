@@ -11,12 +11,12 @@ export const CELL_SIZE = 10; // [px]
 /// Grid colour.
 const GRID_COL = "#CCCCCC";
 /// Dead cell colour.
-const DEAD_COL = "#ffffff";
+const DEAD_COL = "#000000";
 /// Living cell colour.
-const ALIVE_COL = "#000000";
+const ALIVE_COL = "#ffffff";
 
-const SPEED = 5;
-const OFFSET = 0;
+const SPEED = 10;
+const OFFSET = 90;
 
 
 
@@ -54,8 +54,8 @@ export function draw_cells(ctx, width, height, board, memory) {
             }
 
             ctx.fillRect(
-                (col * (CELL_SIZE + 1)) + 2,
-                (row * (CELL_SIZE + 1)) + 2,
+                (col * (CELL_SIZE + 1)) + 4,
+                (row * (CELL_SIZE + 1)) + 4,
                 CELL_SIZE - 2,
                 CELL_SIZE - 2
             );
@@ -84,10 +84,10 @@ export function draw_counts(ctx, width, height, board, memory) {
                     ${Math.floor(b)})`;
 
             ctx.fillRect(
-                (col * (CELL_SIZE + 1)) + 1,
-                (row * (CELL_SIZE + 1)) + 1,
-                CELL_SIZE,
-                CELL_SIZE
+                (col * (CELL_SIZE + 1)) + 2,
+                (row * (CELL_SIZE + 1)) + 2,
+                CELL_SIZE + 1,
+                CELL_SIZE + 1
             );
         }
     }
