@@ -75,8 +75,8 @@ const is_paused = () => {
 
 /// Start time.
 const play = () => {
-    time_button.textContent = "stop";
-    render_loop();
+    time_button.textContent = "pause ";
+    window.requestAnimationFrame(loop)
 };
 
 /// Stop time.
@@ -111,3 +111,15 @@ reset_hist_button.addEventListener("click", event => {
 life_chance.addEventListener("oninput", event => {
     console.log("hello");
 });
+
+
+/// Keypress.
+document.body.onkeyup = function (e) {
+    if (e.keyCode == 32) { // Spacebar.
+        if (is_paused()) {
+            play();
+        } else {
+            pause();
+        }
+    }
+}
