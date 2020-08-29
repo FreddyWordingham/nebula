@@ -27,6 +27,7 @@ const life_chance = document.getElementById("life_chance_range");
 
 const bottom_form = document.getElementById("bottom_form");
 const time_button = document.getElementById("time_button");
+const randomise_button = document.getElementById("randomise_button");
 
 
 /// Draw the grid array.
@@ -94,13 +95,19 @@ reset_hist_button.addEventListener("click", event => {
     render();
 });
 
-/// Check for button click.
+/// Check for time button click.
 time_button.addEventListener("click", event => {
     if (is_paused()) {
         play();
     } else {
         pause();
     }
+});
+
+/// Check for randomise button click.
+randomise_button.addEventListener("click", event => {
+    board.randomise(life_chance.value);
+    render();
 });
 
 
@@ -136,6 +143,9 @@ document.body.onkeyup = function (e) {
         }
     } else if (e.keyCode == 27) { // escape.
         toggle_forms();
+    } else if (e.keyCode == 82) { // 'r'.
+        board.randomise(life_chance.value);
+        render();
     }
 }
 
