@@ -22,6 +22,7 @@ const ctx = canvas.getContext('2d');
 
 /// Form ids.
 const reset_life_button = document.getElementById("reset_life_button");
+const reset_hist_button = document.getElementById("reset_hist_button");
 const life_chance = document.getElementById("life_chance_range");
 
 
@@ -65,6 +66,11 @@ window.requestAnimationFrame(loop)
 /// Reset button.
 reset_life_button.addEventListener("click", event => {
     board.randomise(life_chance.value);
+});
+
+/// Reset history button.
+reset_hist_button.addEventListener("click", event => {
+    board.reset_count();
 });
 
 

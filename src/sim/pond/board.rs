@@ -80,6 +80,11 @@ impl Board {
             }
         }
     }
+
+    /// Reset the count history.
+    pub fn reset_count(&mut self) {
+        self.count.map_inplace(|x| *x = 0);
+    }
 }
 
 impl Board {
