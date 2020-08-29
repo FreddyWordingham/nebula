@@ -2,6 +2,7 @@ import {
     hsl,
     hsl_to_hex,
     rgb_to_hex,
+    hsl_to_rgb,
 } from "./colour";
 
 
@@ -40,13 +41,14 @@ export function draw_cells(ctx, width, height, board, memory) {
 
     ctx.beginPath();
 
+    ctx.fillStyle = ALIVE_COL;
     for (let row = 0; row < height; ++row) {
         for (let col = 0; col < width; ++col) {
             const idx = (row * width) + col;
 
-            ctx.fillStyle = cells[idx] == 0 ?
-                DEAD_COL :
-                ALIVE_COL;
+            if (cells[idx] == 0) {
+                continue;
+            }
 
             ctx.fillRect(
                 (col * (CELL_SIZE + 1)) + 2,
@@ -71,11 +73,12 @@ export function draw_counts(ctx, width, height, board, memory) {
         for (let col = 0; col < width; ++col) {
             const idx = (row * width) + col;
 
-            let c = 255 - (1 + count[idx]);
+            let c = ((count[idx] + 1) / 255.0);
+            let [r, g, b] = hsl_to_rgb(c, 0.5, 0.5);
             ctx.fillStyle = `rgb(
-                    ${Math.floor(c)},
-                    ${Math.floor(c)},
-                    ${Math.floor(c)})`;
+                    ${Math.floor(r)},
+                    ${Math.floor(g)},
+                    ${Math.floor(b)})`;
 
             ctx.fillRect(
                 (col * (CELL_SIZE + 1)) + 1,
