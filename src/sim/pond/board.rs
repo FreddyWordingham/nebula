@@ -14,11 +14,29 @@ pub struct Board {
     cells: Array2<Cell>,
 }
 
-// //  JS methods.
-// #[wasm_bindgen]
-// #[allow(clippy::missing_const_for_fn)]
-// #[allow(clippy::missing_inline_in_public_items)]
-// impl Board {}
+//  JS methods.
+#[wasm_bindgen]
+#[allow(clippy::missing_const_for_fn)]
+#[allow(clippy::missing_inline_in_public_items)]
+impl Board {
+    /// Construct a new instance.
+    #[must_use]
+    pub fn new(width: u32, height: u32) -> Self {
+        debug_assert!(width > 0);
+        debug_assert!(height > 0);
+
+        Self::new_sized([width as usize, height as usize])
+    }
+
+    /// Count the number of living cells.
+    #[must_use]
+    pub fn occupation(&self) -> u32 {
+        self.cells.iter().fold(0, |alive, cell| match cell {
+            Cell::Dead { .. } => alive + 1,
+            _ => alive,
+        })
+    }
+}
 
 impl Board {
     clone!(res, [usize; 2]);
@@ -27,7 +45,7 @@ impl Board {
     /// Construct a new instance with a given board size.
     #[inline]
     #[must_use]
-    fn new(res: [usize; 2]) -> Self {
+    fn new_sized(res: [usize; 2]) -> Self {
         crate::set_panic_hook(); // TODO: Better place for this?
 
         debug_assert!(res[X] > 0);
