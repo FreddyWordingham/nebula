@@ -3,11 +3,15 @@ name = "museum"
 version = "0.1.0"
 authors = ["Freddy Wordingham <fjmw201@exeter.ac.uk>"]
 edition = "2018"
+repository = "https://github.com/FreddyWordingham/museum"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
+attr = { path = "res/crates/attr" }
+proc = { path = "res/crates/proc" }
+
 console_error_panic_hook = { version = "0.1.6", optional = true }
 js-sys = "0.3.*"
 ndarray = "0.13.*"

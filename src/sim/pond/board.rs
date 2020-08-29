@@ -2,7 +2,7 @@
 
 use ndarray::Array2;
 // use std::fmt::{Display, Formatter, Result};
-use crate::pond::Cell;
+use crate::{access, clone, pond::Cell};
 use wasm_bindgen::prelude::*;
 
 /// Game board.
@@ -21,6 +21,9 @@ pub struct Board {
 // impl Board {}
 
 impl Board {
+    clone!(res, [u32; 2]);
+    access!(cells, Array2<Cell>);
+
     /// Construct a new instance with a given board size.
     #[inline]
     #[must_use]
