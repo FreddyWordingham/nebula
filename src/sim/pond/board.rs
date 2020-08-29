@@ -1,6 +1,6 @@
 //! Universal state.
 
-use crate::{access, clone, pond::Cell};
+use crate::{access, clone, pond::Cell, X, Y};
 use ndarray::Array2;
 use std::fmt::{Display, Formatter, Result};
 use wasm_bindgen::prelude::*;
@@ -9,7 +9,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 pub struct Board {
     /// Board size.
-    res: [u32; 2],
+    res: [usize; 2],
     /// Current state array.
     cells: Array2<Cell>,
 }
@@ -21,21 +21,21 @@ pub struct Board {
 // impl Board {}
 
 impl Board {
-    clone!(res, [u32; 2]);
+    clone!(res, [usize; 2]);
     access!(cells, Array2<Cell>);
 
     /// Construct a new instance with a given board size.
     #[inline]
     #[must_use]
-    fn new(res: [u32; 2]) -> Self {
+    fn new(res: [usize; 2]) -> Self {
         crate::set_panic_hook(); // TODO: Better place for this?
 
-        debug_assert!(res[0] > 0);
-        debug_assert!(res[1] > 0);
+        debug_assert!(res[X] > 0);
+        debug_assert!(res[Y] > 0);
 
         Self {
             res,
-            cells: Array2::default([res[0] as usize, res[1] as usize]),
+            cells: Array2::default([res[X], res[Y]]),
         }
     }
 }
@@ -43,9 +43,9 @@ impl Board {
 impl Display for Board {
     #[inline]
     fn fmt(&self, f: &mut Formatter) -> Result {
-        for row in 0..self.res[1] {
-            for col in 0..self.res[0] {
-                write!(f, "{}", self.cells[[row, col]])?;
+        for yi in 0..self.res[Y] {
+            for xi in 0..self.res[X] {
+                write!(f, "{}", self.cells[[xi, yi]])?;
             }
             writeln!(f)?;
         }

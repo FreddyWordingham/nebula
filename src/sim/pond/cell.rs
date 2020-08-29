@@ -1,5 +1,7 @@
 //! Cell status implementation.
 
+use std::fmt::{Display, Formatter, Result};
+
 /// Cell status.
 pub enum Cell {
     /// Dead cell.
@@ -23,5 +25,17 @@ impl Default for Cell {
     #[inline]
     fn default() -> Self {
         Self::Dead
+    }
+}
+
+impl Display for Cell {
+    #[inline]
+    fn fmt(&self, f: &mut Formatter) -> Result {
+        let symbol = match self {
+            Self::Dead => "   ",
+            Self::Alive => "[ ]",
+        };
+
+        write!(f, "{}", symbol)
     }
 }
