@@ -18,3 +18,10 @@ impl Cell {
         };
     }
 }
+
+impl Default for Cell {
+    #[inline]
+    fn default() -> Self {
+        Self::Dead
+    }
+}
