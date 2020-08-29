@@ -65,18 +65,18 @@ function loop(timestamp) {
 
 /// Buttons
 /// Check if time is paused.
-const is_paused = () => {
+function is_paused() {
     return frame_id === null;
 };
 
 /// Start time.
-const play = () => {
+function play() {
     time_button.textContent = "pause ";
     window.requestAnimationFrame(loop)
 };
 
 /// Stop time.
-const pause = () => {
+function pause() {
     time_button.textContent = "start";
     cancelAnimationFrame(frame_id);
     frame_id = null;
