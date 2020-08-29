@@ -53,3 +53,12 @@ let width = 64;
 let height = 64;
 let board = setup_new_grid(width, height);
 window.requestAnimationFrame(loop)
+
+
+
+/// Buttons
+
+/// Reset button.
+document.getElementById("reset_life_button").addEventListener("click", event => {
+    board.randomise(0.5);
+});
