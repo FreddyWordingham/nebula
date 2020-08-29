@@ -12,6 +12,8 @@ pub struct Board {
     res: [usize; 2],
     /// Current state array.
     cells: Array2<Cell>,
+    /// Previous state array.
+    prev: Array2<Cell>,
 }
 
 //  JS methods.
@@ -38,6 +40,14 @@ impl Board {
             _ => alive,
         })
     }
+
+    /// Tick forward a number of times.
+    pub fn tick_forward(&mut self, ticks: u32) {
+        debug_assert!(ticks > 0);
+        for _ in 0..ticks {
+            self.tick();
+        }
+    }
 }
 
 impl Board {
@@ -56,6 +66,7 @@ impl Board {
         Self {
             res,
             cells: Array2::default([res[X], res[Y]]),
+            prev: Array2::default([res[X], res[Y]]),
         }
     }
 
@@ -82,12 +93,44 @@ impl Board {
 
         count
     }
+
+    /// Iterate the board forward a given number of steps.
+    #[inline]
+    pub fn tick(&mut self) {
+        for row in 0..self.res[1] {
+            for col in 0..self.res[0] {
+                let index = [row, col];
+
+                let cell = self.cells[index];
+                let num_neigh = self.num_neighbours(index);
+
+                self.prev[index] = match cell {
+                    Cell::Alive => {
+                        if num_neigh == 2 || num_neigh == 3 {
+                            Cell::Alive
+                        } else {
+                            Cell::Dead
+                        }
+                    }
+                    Cell::Dead => {
+                        if num_neigh == 3 {
+                            Cell::Alive
+                        } else {
+                            Cell::Dead
+                        }
+                    }
+                };
+            }
+        }
+
+        std::mem::swap(&mut self.cells, &mut self.prev);
+    }
 }
 
 impl Display for Board {
     #[inline]
     fn fmt(&self, f: &mut Formatter) -> Result {
-        for yi in 0..self.res[Y] {
+        for yi in (self.res[Y] - 1)..=0 {
             for xi in 0..self.res[X] {
                 write!(f, "{}", self.cells[[xi, yi]])?;
             }
