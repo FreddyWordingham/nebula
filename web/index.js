@@ -20,6 +20,10 @@ const canvas = document.getElementById("main_canvas");
 const ctx = canvas.getContext('2d');
 
 
+/// Form ids.
+const reset_life_button = document.getElementById("reset_life_button");
+const life_chance = document.getElementById("life_chance_range");
+
 
 /// Draw the grid array.
 function setup_new_grid(width, height) {
@@ -28,7 +32,7 @@ function setup_new_grid(width, height) {
 
     /// Main board.
     const board = Board.new(width, height);
-    board.randomise(0.5);
+    board.randomise(life_chance.value);
 
     draw_grid(ctx, width, height);
     // draw_cells(ctx, width, height, board, memory);
@@ -59,6 +63,12 @@ window.requestAnimationFrame(loop)
 /// Buttons
 
 /// Reset button.
-document.getElementById("reset_life_button").addEventListener("click", event => {
-    board.randomise(0.5);
+reset_life_button.addEventListener("click", event => {
+    board.randomise(life_chance.value);
+});
+
+
+/// Ranges.
+life_chance.addEventListener("oninput", event => {
+    console.log("hello");
 });
