@@ -1,3 +1,3 @@
 //! Simulation module.
 
-pub mod pond;
+pub mod nebula;

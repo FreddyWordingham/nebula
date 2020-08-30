@@ -1,4 +1,4 @@
-//! Game-of-life pond simulation module.
+//! Nebulae simulation module.
 
 pub mod board;
 pub mod cell;

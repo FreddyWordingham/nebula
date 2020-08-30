@@ -1,10 +1,10 @@
 import {
     Board,
     Cell,
-} from "pond";
+} from "nebula";
 import {
     memory
-} from "pond/pond_bg";
+} from "nebula/nebula_bg";
 import {
     CELL_SIZE,
     CELL_SPACING,

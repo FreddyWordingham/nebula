@@ -1,5 +1,5 @@
 {
-    "name": "pond",
+    "name": "nebula",
     "version": "0.1.0",
     "description": "Rust rendering engine in a browser.",
     "main": "index.js",
@@ -10,7 +10,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/FreddyWordingham/pond.git"
+        "url": "https://github.com/FreddyWordingham/nebula.git"
     },
     "keywords": [
         "webassembly",
@@ -20,9 +20,9 @@
         "renderer"
     ],
     "author": "Freddy Wordingham <fjmw201@exeter.ac.uk>",
-    "homepage": "https://github.com/FreddyWordingham/pond#readme",
+    "homepage": "https://github.com/FreddyWordingham/nebula#readme",
     "dependencies": {
-        "pond": "file:../pkg"
+        "nebula": "file:../pkg"
     },
     "devDependencies": {
         "copy-webpack-plugin": "^5.0.0",

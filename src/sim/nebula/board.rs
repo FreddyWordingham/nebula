@@ -1,6 +1,6 @@
 //! Universal state.
 
-use crate::{access, clone, log, pond::Cell, X, Y};
+use crate::{access, clone, log, nebula::Cell, X, Y};
 use ndarray::Array2;
 use std::fmt::{Display, Formatter, Result};
 use wasm_bindgen::prelude::*;

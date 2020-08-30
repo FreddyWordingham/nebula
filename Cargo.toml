@@ -1,9 +1,9 @@
 [package]
-name = "pond"
+name = "nebula"
 version = "0.1.0"
 authors = ["Freddy Wordingham <fjmw201@exeter.ac.uk>"]
 edition = "2018"
-repository = "https://github.com/FreddyWordingham/pond"
+repository = "https://github.com/FreddyWordingham/nebula"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
