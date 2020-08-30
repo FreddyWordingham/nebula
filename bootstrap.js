@@ -52,23 +52,23 @@
 /******/ 	function promiseResolve() { return Promise.resolve(); }
 /******/
 /******/ 	var wasmImportObjects = {
-/******/ 		"../pkg/pond_bg.wasm": function() {
+/******/ 		"../pkg/nebula_bg.wasm": function() {
 /******/ 			return {
-/******/ 				"./pond_bg.js": {
+/******/ 				"./nebula_bg.js": {
 /******/ 					"__wbindgen_string_new": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/pond_bg.js"].exports["__wbindgen_string_new"](p0i32,p1i32);
+/******/ 						return installedModules["../pkg/nebula_bg.js"].exports["__wbindgen_string_new"](p0i32,p1i32);
 /******/ 					},
 /******/ 					"__wbg_log_61ea781bd002cc41": function(p0i32) {
-/******/ 						return installedModules["../pkg/pond_bg.js"].exports["__wbg_log_61ea781bd002cc41"](p0i32);
+/******/ 						return installedModules["../pkg/nebula_bg.js"].exports["__wbg_log_61ea781bd002cc41"](p0i32);
 /******/ 					},
 /******/ 					"__wbindgen_object_drop_ref": function(p0i32) {
-/******/ 						return installedModules["../pkg/pond_bg.js"].exports["__wbindgen_object_drop_ref"](p0i32);
+/******/ 						return installedModules["../pkg/nebula_bg.js"].exports["__wbindgen_object_drop_ref"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_random_5af91a0f7daf1188": function() {
-/******/ 						return installedModules["../pkg/pond_bg.js"].exports["__wbg_random_5af91a0f7daf1188"]();
+/******/ 						return installedModules["../pkg/nebula_bg.js"].exports["__wbg_random_5af91a0f7daf1188"]();
 /******/ 					},
 /******/ 					"__wbindgen_throw": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/pond_bg.js"].exports["__wbindgen_throw"](p0i32,p1i32);
+/******/ 						return installedModules["../pkg/nebula_bg.js"].exports["__wbindgen_throw"](p0i32,p1i32);
 /******/ 					}
 /******/ 				}
 /******/ 			};
@@ -161,7 +161,7 @@
 /******/
 /******/ 		// Fetch + compile chunk loading for webassembly
 /******/
-/******/ 		var wasmModules = {"0":["../pkg/pond_bg.wasm"]}[chunkId] || [];
+/******/ 		var wasmModules = {"0":["../pkg/nebula_bg.wasm"]}[chunkId] || [];
 /******/
 /******/ 		wasmModules.forEach(function(wasmModuleId) {
 /******/ 			var installedWasmModuleData = installedWasmModules[wasmModuleId];
@@ -171,7 +171,7 @@
 /******/ 				promises.push(installedWasmModuleData);
 /******/ 			else {
 /******/ 				var importObject = wasmImportObjects[wasmModuleId]();
-/******/ 				var req = fetch(__webpack_require__.p + "" + {"../pkg/pond_bg.wasm":"b3920d29c7d6a4288b4f"}[wasmModuleId] + ".module.wasm");
+/******/ 				var req = fetch(__webpack_require__.p + "" + {"../pkg/nebula_bg.wasm":"63cd478cb2761dafddd7"}[wasmModuleId] + ".module.wasm");
 /******/ 				var promise;
 /******/ 				if(importObject instanceof Promise && typeof WebAssembly.compileStreaming === 'function') {
 /******/ 					promise = Promise.all([WebAssembly.compileStreaming(req), importObject]).then(function(items) {
