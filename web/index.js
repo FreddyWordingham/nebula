@@ -1,10 +1,10 @@
 import {
     Board,
     Cell,
-} from "museum";
+} from "pond";
 import {
     memory
-} from "museum/museum_bg";
+} from "pond/pond_bg";
 import {
     CELL_SIZE,
     CELL_SPACING,
