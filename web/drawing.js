@@ -22,9 +22,6 @@ const DEAD_COL = "#000000";
 /// Living cell colour.
 const ALIVE_COL = "#ffffff";
 
-const SPEED = 4;
-const OFFSET = 90;
-
 
 
 /// Draw the cell array.
@@ -56,7 +53,7 @@ export function draw_cells(ctx, width, height, board, memory) {
 }
 
 /// Draw the board count history.
-export function draw_counts(ctx, width, height, board, memory) {
+export function draw_counts(ctx, width, height, board, memory, speed, offset) {
     const count_ptr = board.count_ptr();
     const count = new Uint8Array(memory.buffer, count_ptr, (width * height));
 
@@ -66,7 +63,7 @@ export function draw_counts(ctx, width, height, board, memory) {
         for (let col = 0; col < width; ++col) {
             const idx = (row * width) + col;
 
-            let c = (((((count[idx] + 1) * SPEED) + OFFSET) % 255) / 255.0);
+            let c = (((((count[idx] + 1) * speed) + offset) % 255) / 255.0);
             let [r, g, b] = hsl_to_rgb(c, 0.5, 0.5);
             ctx.fillStyle = `rgb(
                     ${Math.floor(r)},

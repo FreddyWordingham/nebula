@@ -25,6 +25,8 @@ const ctx = canvas.getContext('2d');
 const top_form = document.getElementById("top_form");
 const reset_hist_button = document.getElementById("reset_hist_button");
 const life_chance = document.getElementById("life_chance_range");
+const cycle_speed_range = document.getElementById("cycle_speed_range");
+var cycle_speed = Math.pow(2, cycle_speed_range.value);
 
 const bottom_form = document.getElementById("bottom_form");
 const time_button = document.getElementById("time_button");
@@ -61,7 +63,7 @@ function toggle_forms() {
 //  -- Rendering --
 /// Render control.
 function render() {
-    draw_counts(ctx, width, height, board, memory);
+    draw_counts(ctx, width, height, board, memory, cycle_speed, 0);
     draw_cells(ctx, width, height, board, memory);
     // console.log("num alive: ", board.num_alive());
 }
@@ -115,6 +117,12 @@ function loop(timestamp) {
 life_chance_range.addEventListener("change", event => {
     board.randomise(life_chance.value);
     render();
+});
+
+cycle_speed_range.addEventListener("change", event => {
+    let speed = Math.pow(2, cycle_speed_range.value);
+    console.log("Setting speed: ", speed);
+    cycle_speed = speed;
 });
 
 /// Reset history button.
