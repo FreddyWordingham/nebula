@@ -14,6 +14,7 @@ import {
 
 
 
+//  == HANDLES ==
 /// Canvas id.
 const canvas = document.getElementById("main_canvas");
 /// Drawing context.
@@ -30,27 +31,73 @@ const time_button = document.getElementById("time_button");
 const randomise_button = document.getElementById("randomise_button");
 
 
-/// Draw the grid array.
-function setup_new_grid(width, height) {
-    canvas.height = ((CELL_SIZE + CELL_SPACING) * height) - CELL_SPACING;
-    canvas.width = ((CELL_SIZE + CELL_SPACING) * width) - CELL_SPACING;
 
-    /// Main board.
-    const board = Board.new(width, height);
-    board.randomise(life_chance.value);
+//  == GLOBALS ==
+let frame_id = null;
 
-    draw_cells(ctx, width, height, board, memory);
-    console.log("num alive: ", board.num_alive());
 
-    return board;
+
+//  == FUNCTIONS ==
+//  -- UI --
+/// Toggle the form visibility.
+function toggle_forms() {
+    if (top_form.style.display == "block") {
+        if (is_paused()) {
+            play();
+        }
+
+        top_form.style.display = "none";
+        bottom_form.style.display = "none";
+    } else {
+        if (!is_paused()) {
+            pause();
+        }
+
+        top_form.style.display = "block";
+        bottom_form.style.display = "block";
+    }
 }
 
-/// Main rendering function.
+//  -- Rendering --
+/// Render control.
 function render() {
     draw_counts(ctx, width, height, board, memory);
     draw_cells(ctx, width, height, board, memory);
     // console.log("num alive: ", board.num_alive());
 }
+
+
+//  -- Setup --
+/// Construct a new grid instance.
+function setup_new_grid(width, height) {
+    canvas.height = ((CELL_SIZE + CELL_SPACING) * height) - CELL_SPACING;
+    canvas.width = ((CELL_SIZE + CELL_SPACING) * width) - CELL_SPACING;
+
+    let board = Board.new(width, height);
+    board.randomise(life_chance.value);
+
+    return board;
+}
+
+
+//  -- Time Control --
+/// Check if time is paused.
+function is_paused() {
+    return frame_id === null;
+};
+
+/// Start time.
+function play() {
+    time_button.textContent = "pause";
+    window.requestAnimationFrame(loop)
+};
+
+/// Stop time.
+function pause() {
+    time_button.textContent = "start";
+    cancelAnimationFrame(frame_id);
+    frame_id = null;
+};
 
 /// Update the board and then draw it.
 function loop(timestamp) {
@@ -62,27 +109,8 @@ function loop(timestamp) {
 }
 
 
-/// Buttons
-/// Check if time is paused.
-function is_paused() {
-    return frame_id === null;
-};
 
-/// Start time.
-function play() {
-    time_button.textContent = "pause ";
-    window.requestAnimationFrame(loop)
-};
-
-/// Stop time.
-function pause() {
-    time_button.textContent = "start";
-    cancelAnimationFrame(frame_id);
-    frame_id = null;
-};
-
-
-/// Listeners
+//  == LISTENERS ==
 /// Life chance fraction.
 life_chance_range.addEventListener("change", event => {
     board.randomise(life_chance.value);
@@ -110,29 +138,6 @@ randomise_button.addEventListener("click", event => {
     render();
 });
 
-
-
-/// Toggle the form visibility.
-function toggle_forms() {
-    if (top_form.style.display == "block") {
-        if (is_paused()) {
-            play();
-        }
-
-        top_form.style.display = "none";
-        bottom_form.style.display = "none";
-    } else {
-        if (!is_paused()) {
-            pause();
-        }
-
-        top_form.style.display = "block";
-        bottom_form.style.display = "block";
-    }
-}
-
-
-
 /// Keypress.
 document.body.onkeyup = function (e) {
     if (e.keyCode == 32) { // spacebar.
@@ -151,9 +156,7 @@ document.body.onkeyup = function (e) {
 
 
 
-/// Rendering loop global variables.
-let frame_id = null;
-
+//  == START ==
 let width = 64;
 let height = 64;
 let board = setup_new_grid(width, height);
