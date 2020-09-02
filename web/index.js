@@ -27,6 +27,8 @@ const reset_hist_button = document.getElementById("reset_hist_button");
 const life_chance = document.getElementById("life_chance_range");
 const cycle_speed_range = document.getElementById("cycle_speed_range");
 var cycle_speed = Math.pow(2, cycle_speed_range.value);
+const cycle_offset_range = document.getElementById("cycle_offset_range");
+var cycle_offset = cycle_offset_range.value;
 
 const bottom_form = document.getElementById("bottom_form");
 const time_button = document.getElementById("time_button");
@@ -63,7 +65,7 @@ function toggle_forms() {
 //  -- Rendering --
 /// Render control.
 function render() {
-    draw_counts(ctx, width, height, board, memory, cycle_speed, 0);
+    draw_counts(ctx, width, height, board, memory, cycle_speed, cycle_offset);
     draw_cells(ctx, width, height, board, memory);
     // console.log("num alive: ", board.num_alive());
 }
@@ -123,6 +125,12 @@ cycle_speed_range.addEventListener("change", event => {
     let speed = Math.pow(2, cycle_speed_range.value);
     console.log("Setting speed: ", speed);
     cycle_speed = speed;
+});
+
+cycle_offset_range.addEventListener("change", event => {
+    let offset = cycle_offset_range.value;
+    console.log("Setting offset: ", offset);
+    cycle_offset = offset;
 });
 
 /// Reset history button.

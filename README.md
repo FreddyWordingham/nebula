@@ -1,2 +1,2 @@
-# museum
-Rust rendering in a web browser using wasm and js react
+# Nebula
+Browser based simulator toy using Rust WASM and JS
