@@ -122,8 +122,7 @@ life_chance_range.addEventListener("change", event => {
 });
 
 cycle_speed_range.addEventListener("change", event => {
-    // let speed = Math.pow(2, cycle_speed_range.value);
-    let speed = cycle_speed_range.value;
+    let speed = Math.pow(2, cycle_speed_range.value);
     console.log("Setting speed: ", speed);
     cycle_speed = speed;
 });
