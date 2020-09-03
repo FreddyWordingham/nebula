@@ -52,7 +52,7 @@ export function draw_cells(ctx, width, height, board, memory) {
     ctx.stroke();
 }
 
-/// Draw the board count history.
+/// Draw the board count drawstory.
 export function draw_counts(ctx, width, height, board, memory, speed, offset) {
     const count_ptr = board.count_ptr();
     const count = new Uint8Array(memory.buffer, count_ptr, (width * height));

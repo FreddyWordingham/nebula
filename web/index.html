@@ -15,6 +15,13 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                opacity: 1;
+                transition: 1s opacity;
+            }
+
+            body.fade-out {
+                opacity: 0;
+                transition: none;
             }
         </style>
     </head>
@@ -63,6 +70,9 @@
             </table>
         </div>
         <script src="./bootstrap.js"></script>
+        <script>
+            document.body.className -= 'fade-out';
+        </script>
     </body>
 
 </html>
