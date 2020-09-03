@@ -33,6 +33,7 @@ var cycle_offset = cycle_offset_range.value;
 const bottom_form = document.getElementById("bottom_form");
 const time_button = document.getElementById("time_button");
 const randomise_button = document.getElementById("randomise_button");
+const board_size_power_range = document.getElementById("board_size_power_range");
 
 
 
@@ -154,6 +155,15 @@ randomise_button.addEventListener("click", event => {
     render();
 });
 
+// /// Check for resize button click.
+// resize_button.addEventListener("click", event => {
+//     let width = Math.pow(2, board_size_power_range.value);
+//     let height = width;
+//     board = setup_new_grid(width, height);
+//     render();
+// });
+
+
 /// Keypress.
 document.body.onkeyup = function (e) {
     if (e.keyCode == 32) { // spacebar.
@@ -173,9 +183,9 @@ document.body.onkeyup = function (e) {
 
 
 //  == START ==
-let width = 64;
-let height = 64;
-let board = setup_new_grid(width, height);
+let width = Math.pow(2, board_size_power_range.value);
+let height = width;
+var board = setup_new_grid(width, height);
 window.requestAnimationFrame(loop);
 
 top_form.style.display = "none";
