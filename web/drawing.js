@@ -63,7 +63,7 @@ export function draw_counts(ctx, width, height, board, memory, speed, offset) {
         for (let col = 0; col < width; ++col) {
             const idx = (row * width) + col;
 
-            let c = (((((count[idx] + 1) * speed) + offset) % 255) / 255.0);
+            let c = (((count[idx] % speed) / speed) + offset) % 1;
             let [r, g, b] = hsl_to_rgb(c, 0.5, 0.5);
             ctx.fillStyle = `rgb(
                     ${Math.floor(r)},

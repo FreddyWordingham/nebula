@@ -128,7 +128,7 @@ cycle_speed_range.addEventListener("change", event => {
 });
 
 cycle_offset_range.addEventListener("change", event => {
-    let offset = cycle_offset_range.value;
+    let offset = cycle_offset_range.value / 360.0;
     console.log("Setting offset: ", offset);
     cycle_offset = offset;
 });
