@@ -28,7 +28,7 @@ const life_chance = document.getElementById("life_chance_range");
 const cycle_speed_range = document.getElementById("cycle_speed_range");
 var cycle_speed = Math.pow(2, cycle_speed_range.value);
 const cycle_offset_range = document.getElementById("cycle_offset_range");
-var cycle_offset = cycle_offset_range.value;
+var cycle_offset = cycle_offset_range.value / 360.0;
 
 const bottom_form = document.getElementById("bottom_form");
 const time_button = document.getElementById("time_button");
