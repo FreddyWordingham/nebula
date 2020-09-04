@@ -94,7 +94,7 @@ function is_paused() {
 /// Start time.
 function play() {
     time_button.textContent = "pause";
-    window.requestAnimationFrame(loop)
+    window.requestAnimationFrame(main_loop)
 };
 
 /// Stop time.
@@ -105,12 +105,12 @@ function pause() {
 };
 
 /// Update the board and then draw it.
-function loop(timestamp) {
+function main_loop(timestamp) {
     board.tick_forward(1);
 
     render();
 
-    frame_id = window.requestAnimationFrame(loop)
+    frame_id = window.requestAnimationFrame(main_loop)
 }
 
 
@@ -181,12 +181,31 @@ document.body.onkeyup = function (e) {
 }
 
 
+/// Clicking.
+canvas.addEventListener("click", event => {
+    const bound = canvas.getBoundingClientRect();
+
+    const fx = canvas.width / bound.width;
+    const fy = canvas.height / bound.height;
+
+    const xi = (event.clientX - bound.left) * fx;
+    const yi = (event.clientY - bound.top) * fy;
+
+    const col = Math.min(Math.floor(xi / (CELL_SIZE + 1)), width - 1);
+    const row = Math.min(Math.floor(yi / (CELL_SIZE + 1)), height - 1);
+
+    board.toggle_cell(row, col);
+
+    render();
+});
+
+
 
 //  == START ==
 let width = Math.pow(2, board_size_power_range.value);
 let height = width;
 var board = setup_new_grid(width, height);
-window.requestAnimationFrame(loop);
+window.requestAnimationFrame(main_loop);
 
 top_form.style.display = "none";
 bottom_form.style.display = "none";
