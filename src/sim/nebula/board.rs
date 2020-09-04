@@ -85,6 +85,11 @@ impl Board {
     pub fn reset_count(&mut self) {
         self.count.map_inplace(|x| *x = 0);
     }
+
+    /// Toggle a given cell's status.
+    pub fn toggle_cell(&mut self, xi: u32, yi: u32) {
+        self.cells[[xi as usize, yi as usize]].toggle();
+    }
 }
 
 impl Board {
